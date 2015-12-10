@@ -11,7 +11,7 @@ public class arrayDiffRunner {
 			input[i]=Integer.parseInt(scan.next());
 		}
 		
-		System.out.println(arrayDiff.bigDiff(input));
+		System.out.println("Difference: " + arrayDiff.bigDiff(input));
 	}
 
 }
