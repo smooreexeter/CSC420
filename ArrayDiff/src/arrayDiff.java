@@ -11,4 +11,21 @@ public class arrayDiff {
 		diff = high - low;
 		return diff;
 	}
+	
+	public static int clump(int[] nums){
+		int clumpCount = 0;
+		for(int i = 0; i < nums.length - 1; i++){
+			if(nums[i] == nums[i+1]){
+				clumpCount++;
+				for(int j = i+2; j < nums.length; j++){
+					if(nums[i] != nums[j]){
+						i=j;
+						j=nums.length;
+					}
+				}
+			}
+		}
+		return clumpCount;
+	}
+	
 }
