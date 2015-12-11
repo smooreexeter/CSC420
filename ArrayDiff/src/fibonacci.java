@@ -12,14 +12,13 @@ public class fibonacci {
 	}
 	
 	public static int fibonacci(int n){
-		int nth = 0;
-		int val0 = 0;
-		int val1 = 1;
-		for(int i = 0; i < n; i++){
-			nth 
+		if(n == 0){
+			return 0;
+		}else if(n == 1){
+			return 1;
+		}else {
+			return fibonacci(n-1)  + fibonacci(n-2);
 		}
-		
-		return nth;
 	}
 
 }
