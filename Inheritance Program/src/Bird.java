@@ -11,7 +11,7 @@ public class Bird extends Animal{
 	}
 	
 	public void Sleep(){
-		System.out.println("A dog eats...");
+		System.out.println("A bird eats...");
 	}
 	
 }
