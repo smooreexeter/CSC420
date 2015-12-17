@@ -25,6 +25,7 @@ public class Runner {
 					String indexText;
 					System.out.println("Enter an index, or press enter to go to the next available index");
 					indexText = sc.nextLine();
+					sc.nextLine();
 					System.out.println("ID:");
 					info[0] = sc.nextLine();
 					System.out.println("First Name:");
@@ -45,12 +46,13 @@ public class Runner {
 					}else{
 						index = Integer.parseInt(indexText);
 					}
-					contacts.add(index, new Contact(info[0], info[1], info[2], info[3], info[4], info[5], info[6]));
+					contacts.add(index, new PersonalContact(info[0], info[1], info[2], info[3], info[4], info[5], info[6]));
 				}else if(selection2 == 2){
 					String[] info = new String[9];
 					String indexText;
 					System.out.println("Enter an index, or press enter to go to the next available index");
 					indexText = sc.nextLine();
+					sc.nextLine();
 					System.out.println("ID:");
 					info[0] = sc.nextLine();
 					System.out.println("First Name:");
@@ -89,6 +91,8 @@ public class Runner {
 				while(quit!=0){
 					quit=sc.nextInt();
 				}
+			}else if(selection1 == 3){
+				
 			}
 		}
 	}
