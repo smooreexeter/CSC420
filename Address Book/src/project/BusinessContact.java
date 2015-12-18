@@ -9,4 +9,32 @@ public class BusinessContact extends Contact{
 		jTitle = jTitle1;
 		org = org1;
 	}
+	
+	public void changeInfo(int info, String change){
+		switch(info){
+			case 1: id = change;
+					break;
+			case 2: fName = change;
+					break;
+			case 3: lName = change;
+					break;
+			case 4: address = change;
+					break;
+			case 5: pNum = change;
+					break;
+			case 6: email = change;
+					break;
+			case 7: bDay = change;
+					break;
+			case 8: jTitle = change;
+					break;
+			case 9: org = change;
+					break;
+			default: break;
+		}
+	}
+	
+	public int getType(){
+		return 1;
+	}
 }

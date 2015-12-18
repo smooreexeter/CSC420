@@ -18,4 +18,52 @@ public class Contact {
 		return lName + ", " + fName;
 	}
 	
+	public void changeInfo(int info, String change){
+		switch(info){
+			case 1: id = change;
+					break;
+			case 2: fName = change;
+					break;
+			case 3: lName = change;
+					break;
+			case 4: address = change;
+					break;
+			case 5: pNum = change;
+					break;
+			case 6: email = change;
+					break;
+			case 7: bDay = change;
+					break;
+			default: break;
+		}
+	}
+	
+	
+	public int getType(){
+		return -1;
+	}
+	
+	public String getInfo(int info){
+		String ret = "";
+		switch(info){
+			case 1: ret = id;
+					break;
+			case 2: ret = fName;
+					break;
+			case 3: ret = lName;
+					break;
+			case 4: ret = address;
+					break;
+			case 5: ret = pNum;
+					break;
+			case 6: ret = email;
+					break;
+			case 7: ret = bDay;
+					break;
+			default: break;
+		}
+		return ret;
+	}
+	
+	
 }

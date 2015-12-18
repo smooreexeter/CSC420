@@ -87,12 +87,72 @@ public class Runner {
 					System.out.println(contacts.get(i).toString());
 				}
 				System.out.println("\n\nPress 0 to return to the main menu");
-				int quit=sc.nextInt();
+				int quit = sc.nextInt();
 				while(quit!=0){
-					quit=sc.nextInt();
+					quit = sc.nextInt();
 				}
 			}else if(selection1 == 3){
-				
+				System.out.println("What index would you like to edit?");
+				int index = sc.nextInt();
+				boolean retry = true;
+				if(!contacts.isEmpty()){
+					while(retry){
+						if(index >= 0 && index <contacts.size()){
+							if(contacts.get(index).getType()==0){
+								System.out.println("Which field would you like to edit?\n1) ID\t\t2) First Name\n3) Last Name\t"
+										+ "4) Address\n5) Phone Number\t6) Email\n7) Birthday");
+								int field = sc.nextInt();
+								System.out.println("That field is currently set to " + contacts.get(index).getInfo(field) + ". Enter your change, or press enter to cancel.");
+								sc.nextLine();
+								String change = sc.nextLine();
+								System.out.println(change);
+								if(!change.equals("")){
+									contacts.get(index).changeInfo(field, change);
+									System.out.println("Changed!");
+								}
+								System.out.println("Would you like to make another change?\n1) Yes\n2) No");
+								String again = sc.nextLine();
+								again = again.toLowerCase();
+								while(!again.equals(1) && !again.equals(2) && !again.equals('y') && !again.equals('n')){
+									System.out.println("Please enter either 1 or 2.\n1) Yes\n2) No");
+									again = sc.nextLine();
+								}
+								if(again.equals(1) || again.equals('y')){
+									retry=true;
+								}else{
+									retry = false;
+								}
+							}
+							
+							if(contacts.get(index).getType()==1){
+								System.out.println("Which field would you like to edit?\n1) ID\t\t2) First Name\n3) Last Name\t"
+										+ "4) Address\n5) Phone Number\t6) Email\n7) Birthday\t8) Job Title\n9) Organization");
+								int field = sc.nextInt();
+								System.out.println("That field is currently set to " + contacts.get(index).getInfo(field) + ". Enter your change, or press enter to cancel.");
+								sc.nextLine();
+								String change = sc.nextLine();
+								if(!change.equals("")){
+									contacts.get(index).changeInfo(field, change);
+								}
+								System.out.println("Would you like to make another change?\n1) Yes\n2) No");
+								String again = sc.nextLine();
+								again = again.toLowerCase();
+								while(!again.equals(1) && !again.equals(2) && !again.equals('y') && !again.equals('n')){
+									System.out.println("Please enter either 1 or 2.\n1) Yes\n2) No");
+									again = sc.nextLine();
+								}
+								if(again.equals(1) || again.equals('y')){
+									retry=true;
+								}else{
+									retry = false;
+								}
+							}
+						} else{
+							System.out.println("That index doesn't exist. Please enter a number from 0 to " + (contacts.size()-1) + ".");
+							retry = true;
+						}
+					}
+				}
 			}
 		}
 	}
