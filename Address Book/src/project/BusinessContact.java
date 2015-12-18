@@ -34,6 +34,36 @@ public class BusinessContact extends Contact{
 		}
 	}
 	
+	public String getInfo(int info){
+		String ret = "";
+		switch(info){
+			case 1: ret = id;
+					break;
+			case 2: ret = fName;
+					break;
+			case 3: ret = lName;
+					break;
+			case 4: ret = address;
+					break;
+			case 5: ret = pNum;
+					break;
+			case 6: ret = email;
+					break;
+			case 7: ret = bDay;
+					break;
+			case 8: ret = jTitle;
+					break;
+			case 9: ret = org;
+					break;
+			default: break;
+		}
+		return ret;
+	}
+	
+	public String toString(){
+		return id + ": " + lName + ", " + fName + "\t" + jTitle + " at " + org + "\t" + address + "\t" + email + "\t" + pNum + "\t" + bDay;
+	}
+	
 	public int getType(){
 		return 1;
 	}

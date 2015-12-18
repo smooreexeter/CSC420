@@ -9,4 +9,6 @@ public class PersonalContact extends Contact{
 	public int getType(){
 		return 0;
 	}
+	
+	
 }

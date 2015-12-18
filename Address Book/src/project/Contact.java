@@ -14,10 +14,6 @@ public class Contact {
 		bDay = bDay1;
 	}
 	
-	public String toString(){
-		return lName + ", " + fName;
-	}
-	
 	public void changeInfo(int info, String change){
 		switch(info){
 			case 1: id = change;
@@ -36,11 +32,6 @@ public class Contact {
 					break;
 			default: break;
 		}
-	}
-	
-	
-	public int getType(){
-		return -1;
 	}
 	
 	public String getInfo(int info){
@@ -65,5 +56,16 @@ public class Contact {
 		return ret;
 	}
 	
+	public int getType(){
+		return -1;
+	}
+	
+	public String toString(){
+		return id + ": " + lName + ", " + fName + "\t\t\t" + address + "\t" + email + "\t" + pNum + "\t" + bDay;
+	}
+	
+	public String nameToString(){
+		return lName + ", " + fName;
+	}
 	
 }
