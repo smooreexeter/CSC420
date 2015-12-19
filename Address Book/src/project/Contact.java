@@ -61,7 +61,7 @@ public class Contact {
 	}
 	
 	public String toString(){
-		return id + ": " + lName + ", " + fName + "\t\t\t" + address + "\t" + email + "\t" + pNum + "\t" + bDay;
+		return id + ": " + lName + ", " + fName + "\t" + address + "\t" + email + "\t" + pNum + "\t" + bDay;
 	}
 	
 	public String nameToString(){
