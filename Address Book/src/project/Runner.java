@@ -12,9 +12,11 @@ public class Runner {
 		String selection1String = "";
 		int selection1 = 1;
 		while(!(selection1 == 0)){	
+			//menu
 			System.out.println("Welcome to Contacts!\nChoose the number of the desired action\n1) Create new contact\t2) Edit address book\n"
 					+ "3) View address book\t4) View one contact\n\n0) Quit");
 			selection1String = sc.nextLine();
+			//make sure it is assigned if it isn't an integer from 0 to 4
 			while(!selection1String.equals("1") && !selection1String.equals("2") && !selection1String.equals("3") && !selection1String.equals("4") && !selection1String.equals("0")){
 				System.out.println("Please enter an integer from 0 to 4 inclusive.\n1) Create new contact\t2) Edit address book\n"
 					+ "3) View address book\t4) View one contact\n\n0) Quit");
@@ -26,6 +28,7 @@ public class Runner {
 			} catch(NumberFormatException e){
 				System.out.println("Error. Exiting.");
 			}
+			//creating contacts
 /*1*/		if(selection1 == 1){
 				System.out.println("Would you like to create a:\n1) Personal contact\n2) Business contact\n\n0) Return to main menu");
 				String selection2String = sc.nextLine();
@@ -39,6 +42,7 @@ public class Runner {
 				} catch(NumberFormatException e){
 					System.out.println("Error. Exiting.");
 				}
+				//goes through fields for a personal contact and assigns the responses to an array
 				if(selection2 == 1){
 					String[] info = new String[7];
 					String indexText;
@@ -58,6 +62,7 @@ public class Runner {
 					info[5] = sc.nextLine();
 					System.out.println("Birthday:");
 					info[6] = sc.nextLine();
+					//handles errors with index, as well as numbers outside of 0 and the size of the list
 					int index = contacts.size();
 					boolean validIndex = false;
 					if(indexText.equals("")){
@@ -125,7 +130,9 @@ public class Runner {
 							index++;
 						}
 					}
+					//creates the contact
 					contacts.add(index, new PersonalContact(info[0], info[1], info[2], info[3], info[4], info[5], info[6]));
+				//goes through the fields of a business contact
 				} else if(selection2 == 2){
 					String[] info = new String[9];
 					String indexText;
@@ -218,7 +225,7 @@ public class Runner {
 					}
 					contacts.add(index, new BusinessContact(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8]));
 				}
-				
+				//editing the address book
 /*2*/		} else if(selection1 == 2){
 				if(!contacts.isEmpty()){
 					boolean retry = true;
@@ -227,6 +234,7 @@ public class Runner {
 					int index = 0;
 					boolean delete = false;
 					boolean notValidIndex = true;
+					//handles indices out of the acceptable range
 					while(notValidIndex){
 						try{
 							index = Integer.parseInt(indexString);
@@ -241,13 +249,16 @@ public class Runner {
 							notValidIndex = false;
 						}
 					}
+					//loops so that you can continue making edits to one contact
 					while(retry){
+						//handles personal contacts
 						if(contacts.get(index).getType()==0){
 							System.out.println("Editing: " + contacts.get(index).nameToString() + "  Which field would you like to edit?\n1) ID\t\t2) First Name\n3) Last Name\t"
 									+ "4) Address\n5) Phone Number\t6) Email\n7) Birthday\n8) Delete\n\n0) Return to main menu");
 							String fieldString = sc.nextLine();
 							int field = -1;
 							boolean notValidInt = true;
+							//makes sure the selection is correct
 							while(notValidInt){
 								try{
 									field = Integer.parseInt(fieldString);
@@ -264,6 +275,7 @@ public class Runner {
 									notValidInt = false;
 								}
 							}
+							//changes the field
 							if(field != 0 && field != 8){
 								System.out.println("That field is currently set to " + contacts.get(index).getInfo(field) + ". Enter your change, or press enter to cancel.");
 								String change = sc.nextLine();
@@ -283,7 +295,7 @@ public class Runner {
 								} else {
 									retry = false;
 								}
-								
+							//delete
 							} else if(field == 8){
 								System.out.println("Are you sure you would like to delete " + contacts.get(index).nameToString() + "?\n1) Yes\n2) No");
 								String again = sc.nextLine();
@@ -302,11 +314,10 @@ public class Runner {
 								retry = false;
 							} 
 						}
-						
+						//handles business contacts
 						if(contacts.get(index).getType() == 1){
 							System.out.println("Editing: " + contacts.get(index).nameToString() + "  Which field would you like to edit?\n1) ID\t\t2) First Name\n3) Last Name\t"
-									+ "4) Address\n5) Phone Number\t6) Email\n7) Birthday\t8) Job Title\n9) Organization\n\n0) Return to main menu");
-							sc.nextLine();
+									+ "4) Address\n5) Phone Number\t6) Email\n7) Birthday\t8) Job Title\n9) Organization\n10) Delete\n\n0) Return to main menu");
 							String fieldString = sc.nextLine();
 							int field = -1;
 							boolean notValidInt = true;
@@ -315,20 +326,20 @@ public class Runner {
 									field = Integer.parseInt(fieldString);
 								} catch(NumberFormatException e){
 									System.out.println("Please enter an integer from 0 to 7 inclusive.\n1) ID\t\t2) First Name\n3) Last Name\t4) Address\n"
-										+ "5) Phone Number\t6) Email\n7) Birthday\n\n0) Return to main menu");
+											+ "5) Phone Number\t6) Email\n7) Birthday\t8) Job Title\n9) Organization\n10) Delete\n\n0) Return to main menu");
 									sc.nextLine();
 									fieldString = sc.nextLine();
 								}
-								if(field < 0 || field > 7){
+								if(field < 0 || field > 10){
 									System.out.println("Please enter an integer from 0 to 7 inclusive.\n1) ID\t\t2) First Name\n3) Last Name\t4) Address\n"
-											+ "5) Phone Number\t6) Email\n7) Birthday\n\n0) Return to main menu");
+											+ "5) Phone Number\t6) Email\n7) Birthday\t8) Job Title\n9) Organization\n10) Delete\n\n0) Return to main menu");
 									sc.nextLine();
 									fieldString = sc.nextLine();
 								} else {
 									notValidInt = false;
 								}
 							}
-							if(field != 0 && field != 8){
+							if(field != 0 && field != 10){
 								System.out.println("That field is currently set to " + contacts.get(index).getInfo(field) + ". Enter your change, or press enter to cancel.");
 								String change = sc.nextLine();
 								if(!change.equals("")){
@@ -347,7 +358,7 @@ public class Runner {
 								} else {
 									retry = false;
 								}
-							} else if(field == 8){
+							} else if(field == 10){
 								System.out.println("Are you sure you would like to delete " + contacts.get(index).nameToString() + "?\n1) Yes\n2) No");
 								String again = sc.nextLine();
 								again = again.toLowerCase();
@@ -364,10 +375,11 @@ public class Runner {
 							} else if(field == 0) {
 								retry = false;
 							} 
+						//handles contacts created automatically by using an index above the previous size of the array when creating a new contact
 						} else if(contacts.get(index).getType() == -1){
 							System.out.println("This contact was created automatically. Please complete the following to initiate it.");
 							
-							//reruns the create dialogue
+							//reruns the create dialogue without all of the index stuff
 							System.out.println("Would you like to create a:\n1) Personal contact\n2) Business contact\n3) Delete contact"
 									+ "\n\nPress 0 to return to the main menu");
 							String selection2String = sc.nextLine();
@@ -420,6 +432,7 @@ public class Runner {
 								System.out.println("Organization:");
 								info[8] = sc.nextLine();
 								contacts.set(index, new BusinessContact(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7], info[8]));
+							//handles deletion of the blank contact
 							} else if(selection2 == 3){
 								System.out.println("Are you sure you would like to delete blank contact at " + index + "?\n1) Yes\n2) No");
 								String again = sc.nextLine();
@@ -442,8 +455,9 @@ public class Runner {
 						contacts.remove(index);
 					}
 				} else {
-					System.out.println("You have no contacts. Please enter a contact to begin.");
+					System.out.println("No contacts entered.\n");
 				}
+			//prints out the address book
 /*3*/		} else if(selection1 == 3){
 				System.out.println("Would you like to view:\n1) All contacts\n2) Personal contacts\n3) Business contacts\n\n0) Return to main menu");
 				String contactTypeString = sc.nextLine();
@@ -458,6 +472,7 @@ public class Runner {
 					System.out.println("Error. Displaying all contacts.");
 				}
 				System.out.println("\n");
+				//displays all contacts
 				if(contactType == 1){
 					for(int i = 0; i < contacts.size(); i++){
 						if(contacts.get(i).getType() == 0){
@@ -474,6 +489,7 @@ public class Runner {
 					while(!quit.equals("0")){
 						quit = sc.nextLine();
 					}
+				//displays personal contacts
 				} else if(contactType == 2){
 					for(int i = 0; i < contacts.size(); i++){
 						if(contacts.get(i).getType() == 0){
@@ -485,6 +501,7 @@ public class Runner {
 					while(!quit.equals("0")){
 						quit = sc.nextLine();
 					}
+				//displays business contacts
 				} else if(contactType == 3){
 					for(int i = 0; i < contacts.size(); i++){
 						if(contacts.get(i).getType() == 1){
@@ -497,6 +514,7 @@ public class Runner {
 						quit = sc.nextLine();
 					}
 				}
+			//viewing one contact
 /*4*/		} else if(selection1 == 4){
 				if(!contacts.isEmpty()){
 					System.out.println("Enter the index of the contact you would like to view");
@@ -531,7 +549,7 @@ public class Runner {
 						quit = sc.nextLine();
 					}
 				} else {
-					System.out.println("No contacts entered.");
+					System.out.println("No contacts entered.\n");
 				}
 			}
 		}

@@ -61,7 +61,30 @@ public class Contact {
 	}
 	
 	public String toString(){
-		return id + ": " + lName + ", " + fName + "\t" + address + "\t" + email + "\t" + pNum + "\t" + bDay;
+		//doesn't add info if it doesn't exist for that object
+		String ret = "";
+		if(!lName.isEmpty()){
+			ret += lName;
+		}
+		if(!fName.isEmpty()){
+			ret += ", " + fName;
+		}
+		if(!id.isEmpty()){
+			ret += "\tID: " + id;
+		}
+		if(!address.isEmpty()){
+			ret += "\tAddress: " + address;
+		}
+		if(!email.isEmpty()){
+			ret += "\tEmail: " + email;
+		}
+		if(!pNum.isEmpty()){
+			ret += "\tPhone Number: " + pNum;
+		}
+		if(!bDay.isEmpty()){
+			ret += "\tBirthday: " + bDay;
+		}
+		return ret;
 	}
 	
 	public String nameToString(){
