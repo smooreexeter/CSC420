@@ -1,5 +1,4 @@
 package myLinkedList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Runner2 {
@@ -20,19 +19,35 @@ public class Runner2 {
 			} else{
 				addMore = false;
 			}
-		}/*
-		ll.moveToStart();
-		System.out.print("[");
-		for(int i = 0; i < ll.length(); i++){
-			System.out.print(ll.getValue());
-			if(i+1!=ll.length()){
-				System.out.print(", ");
-			}
-			ll.next();
 		}
-		System.out.println("]");
-		*/
-		System.out.println(ll.toString());
+		System.out.println(ll.displayLinkedList());
+		alpha(ll);
+		System.out.println(ll.displayLinkedList());
+		sc.close();
 	}
 
+	public static void alpha(LList<String> ll){
+		ll.moveToStart();
+		for(int i = 0; i < ll.length()-1; i++){
+			String s1 = ll.getValue();
+			ll.next();
+			if(ll.currPos() < ll.length()){
+				String s2 = ll.getValue();
+				System.out.println("run1");
+				System.out.println(s1 + " " +s2);
+				if(s1.compareTo(s2) > 0){
+					i -= 2;
+					ll.prev();
+					ll.insert(s2);
+					ll.next();
+					ll.next();
+					ll.remove();
+					System.out.println("run2");
+					ll.prev();
+				}
+			
+			}
+		}
+	}
+	
 }
