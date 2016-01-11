@@ -23,6 +23,7 @@ public class Runner2 {
 		System.out.println(ll.displayLinkedList());
 		alpha(ll);
 		System.out.println(ll.displayLinkedList());
+		System.out.println(ll.get(2));
 		sc.close();
 	}
 

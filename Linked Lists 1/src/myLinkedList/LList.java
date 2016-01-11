@@ -77,6 +77,14 @@ class LList<E>{
 		if(curr.next() == null) return null;
 		return curr.next().element();
 	}
+	public E get(int pos){
+		assert (pos >= 0 && pos <= cnt) : "Out of range";
+		curr = head;
+		for(int i = 0; i < pos; i++){
+			curr = curr.next();
+		}
+		return this.getValue();
+	}
 	public String displayLinkedList(){
 		String ret = "[";
 		this.moveToStart();
