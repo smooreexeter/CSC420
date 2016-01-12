@@ -23,7 +23,7 @@ public class Runner2 {
 		System.out.println(ll.displayLinkedList());
 		alpha(ll);
 		System.out.println(ll.displayLinkedList());
-		System.out.println(ll.get(2));
+		System.out.println(ll.get(7));
 		sc.close();
 	}
 
@@ -34,8 +34,6 @@ public class Runner2 {
 			ll.next();
 			if(ll.currPos() < ll.length()){
 				String s2 = ll.getValue();
-				System.out.println("run1");
-				System.out.println(s1 + " " +s2);
 				if(s1.compareTo(s2) > 0){
 					i -= 2;
 					ll.prev();
@@ -43,7 +41,6 @@ public class Runner2 {
 					ll.next();
 					ll.next();
 					ll.remove();
-					System.out.println("run2");
 					ll.prev();
 				}
 			

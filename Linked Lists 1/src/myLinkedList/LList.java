@@ -78,12 +78,12 @@ class LList<E>{
 		return curr.next().element();
 	}
 	public E get(int pos){
-		assert (pos >= 0 && pos <= cnt) : "Out of range";
+		assert (pos >= 0) && (pos + 1 <= cnt) : "Out of range";
 		curr = head;
-		for(int i = 0; i < pos; i++){
+		for(int i = 0; i < pos + 1; i++){
 			curr = curr.next();
 		}
-		return this.getValue();
+		return curr.element();
 	}
 	public String displayLinkedList(){
 		String ret = "[";
