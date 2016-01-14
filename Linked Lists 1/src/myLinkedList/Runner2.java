@@ -23,7 +23,7 @@ public class Runner2 {
 		System.out.println(ll.displayLinkedList());
 		alpha(ll);
 		System.out.println(ll.displayLinkedList());
-		System.out.println(ll.get(7));
+		//System.out.println(ll.get(7));
 		sc.close();
 	}
 
@@ -46,6 +46,10 @@ public class Runner2 {
 			
 			}
 		}
+	}
+	
+	public static void removeFifteen(LList<String> ll){
+		int[] 
 	}
 	
 }
