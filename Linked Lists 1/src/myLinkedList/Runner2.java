@@ -48,8 +48,4 @@ public class Runner2 {
 		}
 	}
 	
-	public static void removeFifteen(LList<String> ll){
-		int[] 
-	}
-	
 }
