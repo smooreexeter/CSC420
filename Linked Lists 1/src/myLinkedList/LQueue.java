@@ -38,8 +38,7 @@ class LQueue<E>{
 	
 	
 	public void enqueueFront(E it){
-		Link<E> temp = new Link<E>(it, front.next());
-		front.setNext(temp);
+		front.setNext(new Link<E>(it, front.next()));
 		size++;
 	}
 	public E dequeueRear(){
