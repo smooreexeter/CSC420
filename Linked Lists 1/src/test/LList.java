@@ -19,14 +19,14 @@ class LList<E>{
 	cnt = 0;
 	}
 	/** Insert "it" at current position */
-	public void insert(E it) {
-	curr.setNext(new Link<E>(it, curr.next()));
+	public void insert(E it, int x, int y) {
+	curr.setNext(new Link<E>(it, x, y, curr.next()));
 	if (tail == curr) tail = curr.next(); // New tail
 	cnt++;
 	}
 	/** Append "it" to list */
-	public void append(E it) {
-	tail = tail.setNext(new Link<E>(it, null));
+	public void append(E it, int x, int y) {
+	tail = tail.setNext(new Link<E>(it, x, y, null));
 	cnt++;
 	}
 	/** Remove and return current element */
@@ -76,4 +76,59 @@ class LList<E>{
 	if(curr.next() == null) return null;
 	return curr.next().element();
 	}
+	
+	public String displayLinkedList(){
+		String ret = "[";
+		this.moveToStart();
+		this.next();
+		for(int i = 0; i < this.length(); i++){
+			ret += curr.getFullElement();
+			if(i < this.length()-1){
+				ret += ", ";
+			}
+			this.next();
+		}
+		return ret + "]";
+	}
+	
+	public Link<E>[] findByCoord(int x, int y, int range){
+		this.moveToStart();
+		this.next();
+		Link<E>[] matches = new Link[cnt];
+		int matchesCount = 0;
+		for(int i = 1; i < cnt + 1; i++){
+			if(curr.getX() <= x + range && curr.getX() >= x - range && curr.getY() <= y + range && curr.getY() >= y - range){
+				matches[matchesCount] = curr;
+				matchesCount++;
+			}
+			this.next();
+		}
+		Link<E>[] matchesFinal = new Link[matchesCount];
+		for(int i = 0; i < matchesCount; i++){
+			matchesFinal[i] = matches[i];
+		}
+		return matchesFinal;
+	}
+	
+	public String arrayToString(Link<E>[] arr){
+		String ret = "";
+		for(int i = 0; i < arr.length; i++){
+			ret += arr[i].getFullElement() + ", ";
+		}
+		return ret;
+	}
+	
+	public void deleteByCoord(int x, int y){
+		this.moveToStart();
+		this.next();
+		for(int i = 0; i < cnt; i++){
+			if(curr.getX() == x && curr.getY() == y){
+				this.prev();
+				this.remove();
+			}
+			this.next();
+		}
+	}
+	
+	
 }
