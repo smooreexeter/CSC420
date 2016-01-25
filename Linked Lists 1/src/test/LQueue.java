@@ -17,7 +17,7 @@ class LQueue<E>{
 	public void clear() { init(); }
 	/** Put element on rear */
 	public void enqueue(E it) {
-	rear.setNext(new Link<E>(it, null));
+	rear.setNext(new Link<E>(it, 0, 0, null));
 	rear = rear.next();
 	size++;
 	}

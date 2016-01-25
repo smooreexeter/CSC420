@@ -11,7 +11,7 @@ class LStack<E>{
 	public void clear() { top = null; size = 0; }
 	/** Put "it" on stack */
 	public void push(E it) {
-	top = new Link<E>(it, top);
+	top = new Link<E>(it, 0, 0, top);
 	size++;
 	}
 	/** Remove "it" from stack */
