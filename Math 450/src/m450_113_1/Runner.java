@@ -23,8 +23,8 @@ public class Runner {
 			System.out.println("---ratio: " + rat);
 			test = 1/Math.pow(2, i);
 			sumt += test;
-			System.out.println("+++1/2^n ratio: " + test);
-			if(test < rat){
+			System.out.println("+++1/2^n: " + test);
+			if(test > rat){
 				System.out.println("passed " + (sumr - sumt));
 			}
 			System.out.println("sum: " + sumr);
