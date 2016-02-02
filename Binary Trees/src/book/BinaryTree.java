@@ -80,6 +80,42 @@ public class BinaryTree {
 		}
 
 	}
+	
+	
+	
+	
+	
+	public static void remove(int key){
+		int ret = 0;
+		Node temp = findNode(key);
+		Node temp2 = temp.rightChild;
+		Node temp3 = temp.leftChild;
+		if(root == temp){
+			root = temp2;
+		}
+		findNode(key).name = temp2.name;
+		findNode(key).key = temp2.key;
+		findNode(temp2.key).rightChild = temp2.rightChild;
+		findNode(temp2.key).rightChild= findNode(temp2.key).rightChild.rightChild;
+		boolean leftFound = false;
+		Node temp4 = findNode(temp2.key).rightChild;
+		while(!leftFound){
+			temp4 = temp4.leftChild;
+			if(temp4.leftChild == null){
+				temp4.leftChild = temp3;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static int replace(Node focusNode){
+		
+	}
 
 	// All nodes are visited in ascending order
 	// Recursion is used to go to one node and
@@ -97,7 +133,7 @@ public class BinaryTree {
 
 			// Visit the currently focused on node
 
-			System.out.println(focusNode);
+			//System.out.println(focusNode);
 			
 			int[] store = new int[2];
 			store[0] = focusNode.key;
@@ -117,7 +153,7 @@ public class BinaryTree {
 
 	}
 
-	public Node findNode(int key) {
+	public static Node findNode(int key) {
 
 		// Start at the top of the tree
 
@@ -186,17 +222,27 @@ public static void main(String[] args) {
 
 		// Find the node with key 75
 
-		System.out.println("\nNode with the key 75");
-
-		System.out.println(theTree.findNode(75));
 		
 		System.out.println("Small Count: " + smallCount(root, root.key));
 		
-		inOrderTraverseTree(root, 0);
+		//Two methods, printLevels2 is somewhat array based (linked list filled with arrays of 2 ints)
+		//and printlevels3 is queue based.
 		
+		//I modified inOrderTraverseTree to add nodes values to a linkedList, so it has to be run for 
+		//printLevels2 to work
+		inOrderTraverseTree(root, 0);
 		printLevels2(root, 0);
 		
-		printLevels3(root);
+		
+		System.out.println("\n\n");
+		
+		
+		printLevels3(theTree);
+		
+		remove(50);
+
+		inOrderTraverseTree(root, 0);
+		printLevels2(root,0);
 
 }
 	public static int height(Node a){
@@ -240,31 +286,6 @@ public static void main(String[] args) {
 		}
 		return lc + rc + th;
 	}
- /* static void printLevels(Node focusNode){
-		printLevelsT(focusNode, 0);
-	}
-	
-	public static void printLevelsT(Node focusNode, int lvl){
-		Node nxt = focusNode;
-		if(lvl == 0){
-			System.out.println(focusNode.key);
-		}
-		if(focusNode.leftChild != null){
-			System.out.println(focusNode.leftChild.key);
-		}
-		if(focusNode.rightChild != null){
-			System.out.println(focusNode.rightChild.key);
-		}
-		for(int i = 0; i < lvl; i++){
-			nxt = focusNode.
-		}
-		if(focusNode.leftChild != null){
-			printLevelsT(focusNode.leftChild, lvl + 1);
-		}else if(focusNode.rightChild != null){
-			printLevelsT(focusNode.rightChild, lvl + 1);
-		}
-	}
-	*/
 	
 	public static void printLevels2(Node focusNode, int lvl){
 		for(int i = 0; i < ll.size(); i++){
@@ -278,15 +299,15 @@ public static void main(String[] args) {
 		}
 	}
 	
-	static Stack<Integer> st = new Stack<Integer>();
-	static Queue<Node> qu;
+	
 
-	public static void printLevels3a(BinaryTree t){
-		BinaryTree tn = t;
-		printLevels3(tn.root);
-	}
-	public static void printLevels3(Node focusNode){
-		qu.add(focusNode);
+	
+	public static void printLevels3(BinaryTree t){
+		Node focusNode = t.root;
+		Queue<Node> qu = new LinkedList<Node>();
+		if(focusNode != null){
+			qu.add(focusNode);
+		}
 		while(qu.size() != 0){
 			Node dq = qu.remove();
 			System.out.println(dq.key);
