@@ -86,24 +86,24 @@ public class BinaryTree {
 	
 	
 	public static void remove(int key){
-		int ret = 0;
 		Node temp = findNode(key);
 		Node temp2 = temp.rightChild;
-		Node temp3 = temp.leftChild;
-		if(root == temp){
-			root = temp2;
-		}
-		findNode(key).name = temp2.name;
-		findNode(key).key = temp2.key;
-		findNode(temp2.key).rightChild = temp2.rightChild;
-		findNode(temp2.key).rightChild= findNode(temp2.key).rightChild.rightChild;
+		Node temp3 = temp.rightChild.leftChild;
+		temp.name = temp2.name;
+		temp.key = temp2.key;
+		temp.rightChild = temp2.rightChild;
 		boolean leftFound = false;
-		Node temp4 = findNode(temp2.key).rightChild;
-		while(!leftFound){
-			temp4 = temp4.leftChild;
-			if(temp4.leftChild == null){
-				temp4.leftChild = temp3;
+		if(!(findNode(temp2.key) == null)){
+			Node temp4 = temp.rightChild;
+			while(!leftFound){
+				if(temp4.leftChild == null){
+					temp4.leftChild = temp3;
+					leftFound = true;
+				}
+				temp4 = temp4.leftChild;
 			}
+		}else{
+			temp.leftChild = temp3;
 		}
 	}
 	
@@ -111,11 +111,6 @@ public class BinaryTree {
 	
 	
 	
-	
-	
-	public static int replace(Node focusNode){
-		
-	}
 
 	// All nodes are visited in ascending order
 	// Recursion is used to go to one node and
@@ -231,18 +226,21 @@ public static void main(String[] args) {
 		//I modified inOrderTraverseTree to add nodes values to a linkedList, so it has to be run for 
 		//printLevels2 to work
 		inOrderTraverseTree(root, 0);
-		printLevels2(root, 0);
+		printLevels2(root);
 		
 		
 		System.out.println("\n\n");
 		
 		
 		printLevels3(theTree);
+
+		System.out.println("\n\n");
 		
 		remove(50);
-
-		inOrderTraverseTree(root, 0);
-		printLevels2(root,0);
+		
+		System.out.println("\n\n");
+		
+		printLevels2(root);
 
 }
 	public static int height(Node a){
@@ -287,7 +285,13 @@ public static void main(String[] args) {
 		return lc + rc + th;
 	}
 	
-	public static void printLevels2(Node focusNode, int lvl){
+	public static void printLevels2(Node focusNode){
+		ll = new LinkedList<int[]>();
+		inOrderTraverseTree(root, 0);
+		printLevels2a(focusNode, 0);
+	}
+	
+	public static void printLevels2a(Node focusNode, int lvl){
 		for(int i = 0; i < ll.size(); i++){
 			if(ll.get(i)[1] == lvl){
 				System.out.println("Level " + lvl);
@@ -295,7 +299,7 @@ public static void main(String[] args) {
 			}
 		}
 		if(lvl < height(focusNode)){
-			printLevels2(focusNode, lvl + 1);
+			printLevels2a(focusNode, lvl + 1);
 		}
 	}
 	
