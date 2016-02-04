@@ -81,29 +81,41 @@ public class BinaryTree {
 
 	}
 	
-	
-	
-	
-	
-	public static void remove(int key){
-		Node temp = findNode(key);
-		Node temp2 = temp.rightChild;
-		Node temp3 = temp.rightChild.leftChild;
-		temp.name = temp2.name;
-		temp.key = temp2.key;
-		temp.rightChild = temp2.rightChild;
-		boolean leftFound = false;
-		if(!(findNode(temp2.key) == null)){
-			Node temp4 = temp.rightChild;
-			while(!leftFound){
-				if(temp4.leftChild == null){
-					temp4.leftChild = temp3;
-					leftFound = true;
-				}
-				temp4 = temp4.leftChild;
-			}
+	public static Node findHighest(Node focusNode){
+		if(focusNode.rightChild != null){
+			return findHighest(focusNode.rightChild);
 		}else{
-			temp.leftChild = temp3;
+			return focusNode;
+		}
+	}
+	
+	
+	
+	public static void delete(int key){
+		Node temp = findNode(key);
+		if(temp.rightChild != null){
+			Node temp2 = temp.rightChild;
+			Node temp3 =  temp.rightChild.leftChild;
+			temp.name = temp2.name;
+			temp.key = temp2.key;
+			temp.rightChild = temp2.rightChild;
+			boolean leftFound = false;
+			if(temp2.leftChild != null){
+				Node temp4 = temp.rightChild;
+				while(!leftFound){
+					if(temp4.leftChild == null ){
+						temp4.leftChild = temp3;
+						leftFound = true;
+					}
+					temp4 = temp4.leftChild;
+				}
+			}
+		}else if(temp.leftChild != null){
+			temp.name = temp.leftChild.name;
+			temp.key = temp.leftChild.key;
+			temp.leftChild = null;
+		}else{
+			System.out.println("null");
 		}
 	}
 	
@@ -207,6 +219,8 @@ public static void main(String[] args) {
 		theTree.addNode(65, null);
 		
 		theTree.addNode(53, null);
+		
+		theTree.addNode(90, null);
 		// Different ways to traverse binary trees
 
 		// theTree.inOrderTraverseTree(theTree.root);
@@ -236,7 +250,7 @@ public static void main(String[] args) {
 
 		System.out.println("\n\n");
 		
-		remove(50);
+		delete(15);
 		
 		System.out.println("\n\n");
 		
