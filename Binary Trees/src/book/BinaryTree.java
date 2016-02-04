@@ -89,6 +89,9 @@ public class BinaryTree {
 		}
 	}
 	
+	public static Node findParent(Node focusNode){
+		
+	}
 	
 	
 	public static void delete(int key){
