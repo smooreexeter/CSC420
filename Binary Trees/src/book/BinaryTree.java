@@ -89,8 +89,31 @@ public class BinaryTree {
 		}
 	}
 	
-	public static Node findParent(Node focusNode){
-		
+	public static Node findLowest(Node focusNode){
+		if(focusNode.leftChild != null){
+			return findHighest(focusNode.leftChild);
+		}else{
+			return focusNode;
+		}
+	}
+	
+	public static Node findParent(Node focusNode, Node curr){
+		if(focusNode.key > curr.rightChild.key && curr.rightChild != null){
+			return findParent(focusNode, curr.rightChild);
+		}else if(focusNode.key < curr.leftChild.key && curr.leftChild != null){
+			return findParent(focusNode, curr.leftChild);
+		}
+		if(curr.leftChild != null){
+			if(curr.leftChild.key == focusNode.key){
+				return curr;
+			}
+		}
+		if(curr.rightChild != null){
+			if(curr.rightChild.key == focusNode.key){
+				return curr;
+			}
+		}
+		return curr;
 	}
 	
 	
@@ -118,13 +141,35 @@ public class BinaryTree {
 			temp.key = temp.leftChild.key;
 			temp.leftChild = null;
 		}else{
-			System.out.println("null");
+			if(findParent(temp, root).key > temp.key){
+				findParent(temp, root).leftChild = null;
+				System.out.println("null");
+			}
+			if(findParent(temp, root).key < temp.key){
+				findParent(temp, root).rightChild = null;
+				System.out.println("null");
+			}
+			System.out.println("run" + temp.key);
 		}
 	}
 	
 	
 	
-	
+	public static void rearrange(BinaryTree tree){
+		if(height(tree.root) > 1){
+			Queue<Node> qu = new LinkedList<Node>();
+			while(findHighest(tree.root) != findLowest(tree.root)){
+				qu.add(findHighest(tree.root));
+				delete(findHighest(tree.root).key);
+			}
+			tree.root.leftChild = qu.poll();
+			qu.add(tree.root);
+			delete(tree.root.key);
+			do{
+				tree.addNode(qu.peek().key, qu.poll().name);
+			}while(qu.peek() != null);
+		}
+	}
 	
 
 	// All nodes are visited in ascending order
@@ -242,7 +287,6 @@ public static void main(String[] args) {
 		
 		//I modified inOrderTraverseTree to add nodes values to a linkedList, so it has to be run for 
 		//printLevels2 to work
-		inOrderTraverseTree(root, 0);
 		printLevels2(root);
 		
 		
@@ -253,11 +297,14 @@ public static void main(String[] args) {
 
 		System.out.println("\n\n");
 		
-		delete(15);
+		delete(50);
+		System.out.println(root.key);
 		
 		System.out.println("\n\n");
 		
 		printLevels2(root);
+		
+		reorganizeAndCheck(theTree);
 
 }
 	public static int height(Node a){
@@ -341,5 +388,11 @@ public static void main(String[] args) {
 		}
 	}
 	
-
+	public static void reorganizeAndCheck(BinaryTree tree){
+		rearrange(tree);
+		printLevels2(tree.root);
+		
+	}
+	
+	
 }
