@@ -98,6 +98,7 @@ public class BinaryTree {
 	}
 	
 	public static Node findParent(Node focusNode, Node curr){
+		System.out.println(curr.key);
 		if(focusNode.key > curr.rightChild.key && curr.rightChild != null){
 			return findParent(focusNode, curr.rightChild);
 		}else if(focusNode.key < curr.leftChild.key && curr.leftChild != null){
@@ -113,12 +114,15 @@ public class BinaryTree {
 				return curr;
 			}
 		}
-		return curr;
+		return null;
 	}
 	
 	
 	public static void delete(int key){
+		System.out.println("delete " + key);
+		System.out.println(findNode(key));
 		Node temp = findNode(key);
+		System.out.println(temp.key);
 		if(temp.rightChild != null){
 			Node temp2 = temp.rightChild;
 			Node temp3 =  temp.rightChild.leftChild;
@@ -139,17 +143,19 @@ public class BinaryTree {
 		}else if(temp.leftChild != null){
 			temp.name = temp.leftChild.name;
 			temp.key = temp.leftChild.key;
-			temp.leftChild = null;
+			if(temp.leftChild.leftChild != null){
+				temp.leftChild = temp.leftChild.leftChild;
+			}
+			if(temp.leftChild.rightChild != null){
+				temp.rightChild = temp.leftChild.rightChild;
+			}
 		}else{
 			if(findParent(temp, root).key > temp.key){
 				findParent(temp, root).leftChild = null;
-				System.out.println("null");
 			}
 			if(findParent(temp, root).key < temp.key){
 				findParent(temp, root).rightChild = null;
-				System.out.println("null");
 			}
-			System.out.println("run" + temp.key);
 		}
 	}
 	
@@ -252,21 +258,21 @@ public static void main(String[] args) {
 
 		theTree.addNode(50, "Boss");
 
-		theTree.addNode(25, "Vice President");
+		//theTree.addNode(25, "Vice President");
 
-		theTree.addNode(15, "Office Manager");
+		//theTree.addNode(15, "Office Manager");
 
-		theTree.addNode(30, "Secretary");
+		//theTree.addNode(30, "Secretary");
 
 		theTree.addNode(75, "Sales Manager");
 
 		theTree.addNode(85, "Salesman 1");
 
-		theTree.addNode(71, null);
+		//theTree.addNode(71, null);
 		
-		theTree.addNode(65, null);
+		//theTree.addNode(65, null);
 		
-		theTree.addNode(53, null);
+		//theTree.addNode(53, null);
 		
 		theTree.addNode(90, null);
 		// Different ways to traverse binary trees
