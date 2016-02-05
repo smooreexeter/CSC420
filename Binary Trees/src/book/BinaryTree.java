@@ -89,10 +89,23 @@ public class BinaryTree {
 		}
 	}
 	
-	public static Node findParent(Node focusNode){
-		
+	public static Node findParent(Node rt, Node focusNode){
+		if(rt == focusNode){
+			return null;
+		}
+		if(rt.leftChild == null && rt.rightChild == null){
+			return null;
+		}
+		if(rt.rightChild == focusNode || rt.leftChild == focusNode){
+			return rt;
+		}
+		if(rt.leftChild != null && findParent(rt.leftChild, focusNode) != null){
+			return findParent(rt.leftChild, focusNode);
+		}else if(rt.rightChild != null && findParent(rt.rightChild, focusNode) != null){
+			return findParent(rt.rightChild, focusNode);
+		}
+		return null;
 	}
-	
 	
 	public static void delete(int key){
 		Node temp = findNode(key);
@@ -205,7 +218,7 @@ public static void main(String[] args) {
 
 		BinaryTree theTree = new BinaryTree();
 
-		theTree.addNode(50, "Boss");
+		theTree.addNode(51, "Boss");
 
 		theTree.addNode(25, "Vice President");
 
@@ -215,15 +228,17 @@ public static void main(String[] args) {
 
 		theTree.addNode(75, "Sales Manager");
 
-		theTree.addNode(85, "Salesman 1");
+		theTree.addNode(83, "Salesman 1");
 
-		theTree.addNode(71, null);
+		theTree.addNode(86, "Salesman 2");
 		
-		theTree.addNode(65, null);
+		theTree.addNode(87, "Salesman 3");
 		
-		theTree.addNode(53, null);
+		theTree.addNode(7, "Person 1");
 		
-		theTree.addNode(90, null);
+		theTree.addNode(21, "Person 2");
+		
+		theTree.addNode(3, "Person 3");
 		// Different ways to traverse binary trees
 
 		// theTree.inOrderTraverseTree(theTree.root);
@@ -234,7 +249,7 @@ public static void main(String[] args) {
 
 		// Find the node with key 75
 
-		
+		/*
 		System.out.println("Small Count: " + smallCount(root, root.key));
 		
 		//Two methods, printLevels2 is somewhat array based (linked list filled with arrays of 2 ints)
@@ -258,6 +273,9 @@ public static void main(String[] args) {
 		System.out.println("\n\n");
 		
 		printLevels2(root);
+		*/
+		
+		div5(root);
 
 }
 	public static int height(Node a){
@@ -340,6 +358,33 @@ public static void main(String[] args) {
 			}
 		}
 	}
+	
+	
+	public static void div5(Node focusNode){
+		if(focusNode.key % 5 == 0 && focusNode.leftChild != null){
+			if(focusNode.leftChild.leftChild != null){
+				System.out.print(focusNode.leftChild.leftChild.key + ", ");
+			}
+			if(focusNode.leftChild.rightChild != null){
+				System.out.print(focusNode.leftChild.rightChild.key + ", ");
+			}
+		}
+		if(focusNode.key % 5 == 0 && focusNode.rightChild != null){
+			if(focusNode.rightChild.leftChild != null){
+				System.out.print(focusNode.rightChild.leftChild.key + ", ");
+			}
+			if(focusNode.rightChild.rightChild != null){
+				System.out.print(focusNode.rightChild.rightChild.key + ", ");
+			}
+		}
+		if(focusNode.rightChild != null){
+			div5(focusNode.rightChild);
+		}
+		if(focusNode.leftChild != null){
+			div5(focusNode.leftChild);
+		}
+	}
+	
 	
 
 }
