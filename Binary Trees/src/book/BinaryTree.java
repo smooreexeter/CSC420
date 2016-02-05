@@ -89,8 +89,22 @@ public class BinaryTree {
 		}
 	}
 	
-	public static Node findParent(Node focusNode){
-		
+	public static Node findParent(Node rt, Node focusNode){
+		if(rt == focusNode){
+			return rt;
+		}
+		if(rt.leftChild == null && rt.rightChild == null){
+			return null;
+		}
+		if(rt.rightChild == focusNode || rt.leftChild == focusNode){
+			return rt;
+		}
+		if(rt.leftChild != null && findParent(rt.leftChild, focusNode) != null){
+			return findParent(rt.leftChild, focusNode);
+		}else if(rt.rightChild != null && findParent(rt.rightChild, focusNode) != null){
+			return findParent(rt.rightChild, focusNode);
+		}
+		return null;
 	}
 	
 	
@@ -118,7 +132,11 @@ public class BinaryTree {
 			temp.key = temp.leftChild.key;
 			temp.leftChild = null;
 		}else{
-			System.out.println("null");
+			if(findParent(root, temp).key > temp.key){
+				findParent(root, temp).leftChild = null;
+			}else{
+				findParent(root, temp).rightChild = null;
+			}
 		}
 	}
 	
@@ -253,7 +271,7 @@ public static void main(String[] args) {
 
 		System.out.println("\n\n");
 		
-		delete(15);
+		delete(65);
 		
 		System.out.println("\n\n");
 		
