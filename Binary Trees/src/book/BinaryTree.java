@@ -9,7 +9,7 @@ public class BinaryTree {
 
 	static Node root;
 
-	public void addNode(int key, String name) {
+	public static void addNode(int key, String name) {
 
 		// Create a new Node and initialize it
 
@@ -81,6 +81,12 @@ public class BinaryTree {
 
 	}
 	
+	public static void addNode(Node focusNode){
+		addNode(focusNode.key, focusNode.name);
+		findNode(focusNode.key).leftChild = focusNode.leftChild;
+		findNode(focusNode.key).rightChild = focusNode.rightChild;
+	}
+	
 	public static Node findHighest(Node focusNode){
 		if(focusNode.rightChild != null){
 			return findHighest(focusNode.rightChild);
@@ -107,6 +113,7 @@ public class BinaryTree {
 		return null;
 	}
 	
+<<<<<<< HEAD
 	public static void delete(int key){
 		Node temp = findNode(key);
 		if(temp.rightChild != null){
@@ -122,21 +129,72 @@ public class BinaryTree {
 					if(temp4.leftChild == null ){
 						temp4.leftChild = temp3;
 						leftFound = true;
+=======
+	public static void delete(Node focusNode){
+		Node p = findParent(root, focusNode);
+		Queue<Node> qu = new LinkedList<Node>();
+		if(p != null){
+			if(p.leftChild != null){
+				if(p.leftChild.key == focusNode.key){
+					if(focusNode.leftChild != null){
+						qu.add(focusNode.leftChild);
 					}
-					temp4 = temp4.leftChild;
+					if(focusNode.rightChild != null){
+						qu.add(focusNode.rightChild);
+					}
+					p.leftChild = null;
 				}
 			}
-		}else if(temp.leftChild != null){
-			temp.name = temp.leftChild.name;
-			temp.key = temp.leftChild.key;
-			temp.leftChild = null;
+			if(p.rightChild != null){
+				if(p.rightChild.key == focusNode.key){
+					if(focusNode.leftChild != null){
+						qu.add(focusNode.leftChild);
+					}
+					if(focusNode.rightChild != null){
+						qu.add(focusNode.rightChild);
+>>>>>>> origin/Winter
+					}
+					p.rightChild = null;
+				}
+			}
 		}else{
-			System.out.println("null");
+			if(focusNode.rightChild != null){
+				if(focusNode.leftChild != null){
+					qu.add(focusNode.leftChild);
+				}
+				root = focusNode.rightChild;
+			}else if(focusNode.leftChild != null){
+				root = focusNode.leftChild;
+				focusNode.leftChild = null;
+			}
+		}
+		Node temp;
+		for(int i = 0; i < qu.size(); i++){
+			temp = qu.poll();
+			addNode(temp);
 		}
 	}
 	
 	
-	
+	public static void rearrange(BinaryTree tree){
+		if(height(tree.root) >= 1){
+			Queue<Node> qu = new LinkedList<Node>();
+			Node temp;
+			while(height(tree.root)  != 1){
+				temp = findHighest(tree.root);
+				qu.add(temp);
+				delete(temp);
+			}
+			tree.root.leftChild = qu.poll();
+			qu.add(tree.root);
+			delete(tree.root);
+			Node temp2 = qu.poll();
+			while(temp2 != null){
+				tree.addNode(temp2.key, temp2.name);
+				temp2 = qu.poll();
+			}
+		}
+	}
 	
 	
 
@@ -156,7 +214,6 @@ public class BinaryTree {
 
 			// Visit the currently focused on node
 
-			//System.out.println(focusNode);
 			
 			int[] store = new int[2];
 			store[0] = focusNode.key;
@@ -249,28 +306,31 @@ public static void main(String[] args) {
 
 		// Find the node with key 75
 
+<<<<<<< HEAD
 		/*
 		System.out.println("Small Count: " + smallCount(root, root.key));
+=======
 		
-		//Two methods, printLevels2 is somewhat array based (linked list filled with arrays of 2 ints)
-		//and printlevels3 is queue based.
+		//System.out.println("Small Count: " + smallCount(root, root.key));
+>>>>>>> origin/Winter
 		
-		//I modified inOrderTraverseTree to add nodes values to a linkedList, so it has to be run for 
-		//printLevels2 to work
-		inOrderTraverseTree(root, 0);
+		//printLevels2(root);
+		
+		//System.out.println("\n\n");
+		
+		
+		//printLevels3(theTree);
+
+		//System.out.println("\n\n");
+		
+		//System.out.println("\n\n");
+		
+		
 		printLevels2(root);
 		
+		rearrange(theTree);		
 		
-		System.out.println("\n\n");
-		
-		
-		printLevels3(theTree);
-
-		System.out.println("\n\n");
-		
-		delete(15);
-		
-		System.out.println("\n\n");
+		System.out.println("\n\nRearranged");
 		
 		printLevels2(root);
 		*/
