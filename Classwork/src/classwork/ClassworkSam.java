@@ -12,7 +12,7 @@ public class ClassworkSam {
 		Graph g = new Graph();
 		Node[] n = new Node[7];
 		for(int i = 1; i < 7; i++){
-			n[i] = new Node(i);
+			n[i] = new Node((char) (i + 64));
 			g.addNode(n[i]);
 		}
 		Edge[] e = new Edge[9];
@@ -29,8 +29,50 @@ public class ClassworkSam {
 			g.addEdge(e[i]);
 		}
 		
-		System.out.println(Dijkstra.Di2(g, n[1], n[5]).toString());
+		
+		Graph h = new Graph();
+		Node a1 = new Node("0");
+		Node a2 = new Node("1");
+		Node a3 = new Node("2");
+		h.addNode(a1);
+		h.addNode(a2);
+		h.addNode(a3);
+		
+		h.addEdge(new Edge(a1, a2, 1));
+		h.addEdge(new Edge(a2, a3, 1));
+		
+		
+		//System.out.println(Dijkstra.Di2(g, n[6], n[2]).toString());
+		System.out.println(isThereATriangle(h));
+		
 		
 	}
+	
+	public static boolean isThereATriangle(Graph g){
+		for(int i = 0; i < g.getNodeCount(); i++){
+			System.out.println("i " + i);
+			LinkedList<Node> n1 = g.getNeighbors(g.getNodeAt(i));
+			for(int j = 0; j < n1.size(); j++){
+				System.out.println("j " + j);
+				LinkedList<Node> n2 = g.getNeighbors(g.getNodeAt(j));
+				for(int k = 0; k < n2.size(); k++){
+					if(!n2.get(k).equals(g.getNodeAt(i))){
+						System.out.println("k " + k);
+						LinkedList<Node> n3 = g.getNeighbors(g.getNodeAt(k));
+						for(int l = 0; l < n3.size(); l++){
+							System.out.println(k + " " + i);
+							if(g.getEdgeBetween(n3.get(l), n1.get(j)) != null && !n3.get(l).equals(n1.get(j)) && !n3.get(l).equals(n2.get(k))){
+								return true;
+							}
+						}
+						
+					}
+				}
+				
+			}
+		}
+		return false;
+	}
+	
 
 }
